@@ -1,6 +1,7 @@
 package otus.gpb.hilt
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import dagger.Module
 import dagger.Provides
@@ -29,6 +30,8 @@ class MainActivity : AppCompatActivity() {
     @JvmField
     var str: String = ""
 
+    private val viewModel: MainActivityViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -39,6 +42,9 @@ class MainActivity : AppCompatActivity() {
             numView.text = "Num: $num"
             nextNumView.text = "NextNum: $nextNum"
             strView.text = "Str: $str"
+            viewModel.data.observe(this@MainActivity) {
+                viewModelView.text = it
+            }
         }
     }
 }
