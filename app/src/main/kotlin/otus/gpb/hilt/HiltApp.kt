@@ -11,7 +11,12 @@ import javax.inject.Singleton
 import kotlin.random.Random
 
 @HiltAndroidApp
-class HiltApp : Application()
+class HiltApp : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        LoggerInitializer.init(applicationContext)
+    }
+}
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
