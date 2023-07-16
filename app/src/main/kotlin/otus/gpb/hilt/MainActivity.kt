@@ -1,18 +1,24 @@
 package otus.gpb.hilt
 
-import android.app.Activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import dagger.BindsInstance
-import dagger.Component
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.scopes.ActivityScoped
 import otus.gpb.hilt.databinding.ActivityMainBinding
 import javax.inject.Inject
-import javax.inject.Scope
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     @set:Inject
     var num: Int = 0
+
+    @set:Inject
+    var str: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,32 +26,18 @@ class MainActivity : AppCompatActivity() {
         val view = ActivityMainBinding.inflate(layoutInflater)
         setContentView(view.root)
 
-        DaggerMainActivityComponent
-            .factory()
-            .create((application as DaggerApp).appComponent, this)
-            .inject(this)
-
-        view.numView.text = num.toString()
+        with(view) {
+            numView.text = num.toString()
+            strView.text = str
+        }
     }
 }
 
-@Scope
-@Retention(AnnotationRetention.RUNTIME)
-annotation class
-ActivityScope
-
-@ActivityScope
-@Component(dependencies = [AppComponent::class])
-interface MainActivityComponent {
-    fun activity(): Activity
-
-    fun inject(activity: MainActivity)
-
-    @Component.Factory
-    interface Factory {
-        fun create(
-            appComponent: AppComponent,
-            @BindsInstance activity: Activity
-        ) : MainActivityComponent
-    }
+@Module
+@InstallIn(ActivityComponent::class)
+class ActivityModule {
+    @Provides
+    @ActivityScoped
+    fun str(): String = "String"
 }
+
