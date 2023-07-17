@@ -51,6 +51,10 @@ class MainActivity : AppCompatActivity() {
             viewModel.data.observe(this@MainActivity) {
                 viewModelView.text = it
             }
+
+            button.setOnClickListener {
+                startActivity(ParamsActivity.getStartIntent(this@MainActivity, str))
+            }
         }
     }
 }
