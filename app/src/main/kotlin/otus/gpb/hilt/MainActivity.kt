@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.components.ActivityRetainedComponent
@@ -35,6 +36,9 @@ class MainActivity : AppCompatActivity() {
     @JvmField
     var str: String = ""
 
+    @Inject
+    lateinit var customComponentBuilder: CustomComponentBuilder
+
     private val viewModel: MainActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +58,14 @@ class MainActivity : AppCompatActivity() {
 
             button.setOnClickListener {
                 startActivity(ParamsActivity.getStartIntent(this@MainActivity, str))
+            }
+
+            customButton.setOnClickListener {
+                val component = customComponentBuilder.someData("Custom").build()
+                val entryPoint = EntryPoints.get(component, CustomEntryPoint::class.java)
+                customComponentView.text = with(entryPoint) {
+                    "Num: ${num()}, Str: ${str()}, Bool: ${bool()}"
+                }
             }
         }
     }
