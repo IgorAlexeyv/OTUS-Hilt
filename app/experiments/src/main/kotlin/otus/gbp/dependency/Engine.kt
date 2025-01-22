@@ -1,10 +1,15 @@
 package otus.gbp.dependency
 
-class Engine(private val power: Int) {
-    fun start() {
+interface Engine {
+    fun start()
+    fun stop()
+}
+
+class V4Engine(private val power: Int) : Engine {
+    override fun start() {
         println("Engine started with power $power")
     }
-    fun stop() {
+    override fun stop() {
         println("Engine stopped")
     }
 }

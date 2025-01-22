@@ -7,7 +7,7 @@ fun main() {
 }
 
 class Car {
-    private val engine = Engine(100)
+    private val engine = V4Engine(100)
 
     fun start() {
         engine.start()
