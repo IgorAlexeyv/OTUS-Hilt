@@ -1,9 +1,16 @@
 package otus.gbp.dependency
 
-val carFactory = CarFactoryV4()
-
 fun main() {
-    val car = carFactory.buildCar()
+    // 2025 car factory - V4 engine
+    val factory2025 = CarFactoryV4()
+    buildWithFactory(factory2025)
+    // 2026 car factory - V8 engine
+    val factory2026 = CarFactoryV8()
+    buildWithFactory(factory2026)
+}
+
+fun buildWithFactory(factory: CarFactory) {
+    val car = factory.buildCar()
     car.start()
     car.stop()
 }

@@ -9,3 +9,10 @@ class CarFactoryV4 : CarFactory {
         return Car(V4Engine(200))
     }
 }
+
+class CarFactoryV8 : CarFactory {
+    override fun buildCar(): Car {
+        return Car(V8Engine(400))
+    }
+}
+
