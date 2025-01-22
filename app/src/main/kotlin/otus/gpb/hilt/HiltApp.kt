@@ -8,6 +8,7 @@ import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Qualifier
 import javax.inject.Singleton
+import kotlin.random.Random
 
 @HiltAndroidApp
 class HiltApp : Application()
@@ -16,6 +17,10 @@ class HiltApp : Application()
 @Retention(AnnotationRetention.BINARY)
 annotation class Num
 
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class NumNoScope
+
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
@@ -23,5 +28,9 @@ class AppModule {
     @Provides
     @Singleton
     fun num(): Int = 5
+
+    @NumNoScope
+    @Provides
+    fun numNoScope(): Int = Random.nextInt(1, 100)
 }
 

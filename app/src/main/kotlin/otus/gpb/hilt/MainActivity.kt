@@ -26,6 +26,11 @@ class MainActivity : AppCompatActivity() {
     @JvmField
     var nextNum: Int = 0
 
+    @NumNoScope
+    @Inject
+    @JvmField
+    var numNoScope: Int = 0
+
     @Inject
     @JvmField
     var str: String = ""
@@ -41,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         with(view) {
             numView.text = "Num: $num"
             nextNumView.text = "NextNum: $nextNum"
+            numNoScopeView.text = "NumNoScope: $numNoScope"
             strView.text = "Str: $str"
             viewModel.data.observe(this@MainActivity) {
                 viewModelView.text = it

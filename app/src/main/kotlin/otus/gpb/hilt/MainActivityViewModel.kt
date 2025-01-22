@@ -16,6 +16,6 @@ class MainActivityViewModel @Inject constructor(usecase: MainActivityUsecase) : 
 }
 
 @ViewModelScoped
-class MainActivityUsecase @Inject constructor() {
-    fun getData(): String = "Data from view-model"
+class MainActivityUsecase @Inject constructor(@NumNoScope private val numNoScope: Int) {
+    fun getData(): String = "Data from view-model: $numNoScope"
 }
